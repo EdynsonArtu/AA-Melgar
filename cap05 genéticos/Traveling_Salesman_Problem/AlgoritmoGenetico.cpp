@@ -82,7 +82,16 @@ Cromosoma AlgoritmoGenetico::casamiento(Cromosoma &padre, Cromosoma &madre) {
             hijo[i] = ciudad;
             continue;
         }
-
-
+        //mapeamiento
+        int mapeo = ciudad;
+        do {
+            int posicion = find(p1.begin()+a,
+                        p1.begin()+b+1, mapeo) - p1.begin();
+            mapeo = p2[posicion];
+        } while (find(hijo.begin(), hijo.end(), mapeo) != hijo.end());
+        hijo[i] = mapeo;
     }
+    Cromosoma nuevo(hijo);
+    nuevo.set_costo(this->tsp.costo_tour(hijo));
+    return nuevo;
 }
